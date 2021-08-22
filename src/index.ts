@@ -1,63 +1,77 @@
-type Callback = (imgData: string) => void
-
 type Options = {
   width?: number
   height?: number
   format?: string
   backgroundColor?: string
+  downloadOnClick?: boolean
+  downloadFileName?: string
 }
 
-type SvgString2Image = (
-  svgElement: SVGElement,
-  options: Options,
-  callback: Callback,
-) => void
+type Svg2Image = (
+  svgElement: SVGElement | SVGSVGElement,
+  options?: Options,
+) => Promise<string>
 
-/**
- *
- * @param svgElement - The svg element that will get turned into an image.
- * @param options -
- * @param callback
- */
-const svgString2Image: SvgString2Image = (svgElement, options, callback) => {
+export const svg2Image: Svg2Image = (svgElement, options = {}) => {
   const {
-    width = 100,
-    height = 100,
+    width,
+    height,
     format = 'png',
+    downloadOnClick = true,
+    downloadFileName = 'image',
     backgroundColor: userDefinedBackgroundColor,
   } = options
-  const svgEl = svgElement
-  const canvas = document.createElement('canvas')
-  const context = canvas.getContext('2d')!
-  const { backgroundColor: existingBackgroundColor } = svgEl.style
 
-  svgEl.style.backgroundColor =
-    userDefinedBackgroundColor || existingBackgroundColor || 'white'
-  const xml = new XMLSerializer().serializeToString(svgEl)
+  return new Promise((resolve, reject) => {
+    try {
+      const svgEl = svgElement.cloneNode(true) as SVGElement | SVGSVGElement
+      const viewBox = svgEl.getAttribute('viewBox')?.split(' ')
 
-  const imgSrc = `data:image/svg+xml;base64,${btoa(
-    unescape(encodeURIComponent(xml)),
-  )}`
+      const svgWidth = viewBox
+        ? width || parseInt(viewBox[2], 10)
+        : width || 250
 
-  const image = new Image()
+      const svgHeight = viewBox
+        ? height || parseInt(viewBox[3], 10)
+        : height || 250
 
-  canvas.width = width
-  canvas.height = height
+      const canvas = document.createElement('canvas')
+      const context = canvas.getContext('2d')!
 
-  image.onload = () => {
-    context.clearRect(0, 0, width, height)
-    context.drawImage(image, 0, 0, width, height)
+      const { backgroundColor: existingBackgroundColor } = svgEl.style
 
-    const imgData = canvas.toDataURL(`image/${format}`)
+      svgEl.style.backgroundColor =
+        userDefinedBackgroundColor || existingBackgroundColor || 'white'
+      const xml = new XMLSerializer().serializeToString(svgEl)
 
-    callback(imgData)
-  }
+      const imgSrc = `data:image/svg+xml;base64,${btoa(
+        unescape(encodeURIComponent(xml)),
+      )}`
 
-  image.src = imgSrc
+      const image = new Image()
+
+      canvas.width = svgWidth
+      canvas.height = svgHeight
+
+      image.onload = () => {
+        context.clearRect(0, 0, svgWidth, svgHeight)
+        context.drawImage(image, 0, 0, svgWidth, svgHeight)
+
+        const imgData = canvas.toDataURL(`image/${format}`)
+
+        if (downloadOnClick) {
+          const downloadBtn = document.createElement('a')
+
+          downloadBtn.setAttribute('href', imgData)
+          downloadBtn.setAttribute('download', `${downloadFileName}.${format}`)
+          downloadBtn.click()
+        }
+        resolve(imgData)
+      }
+
+      image.src = imgSrc
+    } catch (error) {
+      reject(error)
+    }
+  })
 }
-
-const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg')
-
-svgString2Image(svg, {}, img => {
-  console.log(img)
-})

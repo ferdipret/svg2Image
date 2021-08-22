@@ -32,7 +32,7 @@
     "trailingComma": "all"
   },
   "name": "svg2image",
-  "author": "The Goat, Duh",
+  "author": "Ferdi Pretorius",
   "module": "dist/svg2image.esm.js",
   "size-limit": [
     {
