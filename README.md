@@ -3,11 +3,16 @@
 </h1>
 <p align="center" style="font-size: 1.2rem;">Makes downloading SVGs as raster graphics images a breeze.</p>
 
----
+### Highlights
 
-## Example
+- Written in typescript.
+- Supports multiple image formats(png, jpeg, jpg).
+- Alter download image styles.
+- Resolves a base64 string.
 
-```ts
+### Example
+
+```tsx
 function Component() {
   const logoRef = useRef<SVGSVGElement>(null)
 
