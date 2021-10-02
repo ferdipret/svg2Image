@@ -1,7 +1,7 @@
 type Options = {
   width?: number
   height?: number
-  format?: string
+  format?: 'png' | 'jpeg' | 'jpg'
   backgroundColor?: string
   downloadOnClick?: boolean
   downloadFileName?: string
