@@ -3,6 +3,18 @@
 </h1>
 <p align="center" style="font-size: 1.2rem;">Makes downloading SVGs as raster graphics images a breeze.</p>
 
+```ts
+svg2Image(SVGElement, options).then(base64result)
+```
+
+### Install
+
+```sh
+npm i @ferdipret/svg-2-img
+# or
+yarn add @ferdipret/svg-2-img
+```
+
 ### Features
 
 - Written in typescript.
@@ -13,13 +25,17 @@
 ### Example
 
 ```tsx
+...
+import svg2Img from '@ferdipret/svg-2-img'
+
+
 function Component() {
   const logoRef = useRef<SVGSVGElement>(null)
 
   const handleClick = () => {
     const svg = logoRef.current
 
-    svg2Image(svg)
+    svg2Img(svg)
   }
 
   return (

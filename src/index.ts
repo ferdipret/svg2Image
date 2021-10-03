@@ -12,7 +12,7 @@ type Svg2Image = (
   options?: Options,
 ) => Promise<string>
 
-export const svg2Image: Svg2Image = (svgElement, options = {}) => {
+const svg2Image: Svg2Image = (svgElement, options = {}) => {
   const {
     width,
     height,
@@ -75,3 +75,5 @@ export const svg2Image: Svg2Image = (svgElement, options = {}) => {
     }
   })
 }
+
+export default svg2Image

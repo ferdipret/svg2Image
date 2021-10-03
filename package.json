@@ -33,6 +33,18 @@
   "name": "@ferdipret/svg-2-img",
   "author": "Ferdi Pretorius",
   "module": "dist/svg-2-img.esm.js",
+  "keywords": [
+    "svg",
+    "image",
+    "download",
+    "react",
+    "typescript",
+    "javascript",
+    "base64",
+    "png",
+    "jpg",
+    "jpeg"
+  ],
   "publishConfig": {
     "access": "public"
   },
