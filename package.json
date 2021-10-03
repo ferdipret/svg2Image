@@ -33,6 +33,9 @@
   "name": "@ferdipret/svg-2-img",
   "author": "Ferdi Pretorius",
   "module": "dist/svg-2-img.esm.js",
+  "publishConfig": {
+    "access": "public"
+  },
   "size-limit": [
     {
       "path": "dist/svg-2-img.cjs.production.min.js",
