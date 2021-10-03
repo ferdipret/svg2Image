@@ -30,7 +30,7 @@
     "singleQuote": true,
     "trailingComma": "all"
   },
-  "name": "svg-2-img",
+  "name": "@ferdipret/svg-2-img",
   "author": "Ferdi Pretorius",
   "module": "dist/svg-2-img.esm.js",
   "size-limit": [
