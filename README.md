@@ -1,32 +1,40 @@
 <h1 align="center">
   <img src="https://raw.githubusercontent.com/ferdipret/svg2Image/main/resources/svg2image-logo.png" alt="svg2Image" title="svg2Image" width="300">
 </h1>
-<p align="center" style="font-size: 1.2rem;">Makes downloading SVGs as raster graphics images a breeze.</p>
+<p align="center" style="font-size: 1.2rem;">The easiest way to download an SVG as an image.</p>
 
-```ts
-svg2Image(SVGElement, options).then(base64result)
-```
-
-### Install
+## Install
 
 ```sh
-npm i @ferdipret/svg-2-img
+npm install @ferdipret/svg-2-img
+
 # or
+
 yarn add @ferdipret/svg-2-img
 ```
 
-### Features
+## Examples
 
-- Written in typescript.
-- Supports multiple image formats(png, jpeg, jpg).
-- Alter download image styles.
-- Returns the resulting base64 string as a promise.
+#### Vanilla JS Image Download
 
-### Example
-
-```tsx
-...
+```js
 import svg2Img from '@ferdipret/svg-2-img'
+const svgElement = document.querySelector('#myLogo')
+const downloadButton = document.querySelector('#downloadButton')
+
+downloadButton.addEventListener('click', () => {
+  svg2Img(svgElement, {
+    format: 'jpeg',
+    downloadFileName: 'cool-logo',
+  })
+})
+
+```
+
+#### React + TypeScript Image Download
+```tsx
+import React from 'react'
+import svg2Image from '@ferdipret/svg-2-img'
 
 
 function Component() {
@@ -35,7 +43,11 @@ function Component() {
   const handleClick = () => {
     const svg = logoRef.current
 
-    svg2Img(svg)
+    svg2Img(svg, {
+      width: 300,
+      height: 300,
+      backgroundColor: 'red',
+    })
   }
 
   return (
@@ -45,4 +57,6 @@ function Component() {
     </>
   )
 }
+
+export default Component
 ```
