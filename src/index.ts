@@ -3,7 +3,7 @@ type Options = {
   height?: number
   format?: 'png' | 'jpeg' | 'jpg'
   backgroundColor?: string
-  downloadOnClick?: boolean
+  download?: boolean
   downloadFileName?: string
 }
 
@@ -17,7 +17,7 @@ const svg2Image: Svg2Image = (svgElement, options = {}) => {
     width,
     height,
     format = 'png',
-    downloadOnClick = true,
+    download = true,
     downloadFileName = 'image',
     backgroundColor: userDefinedBackgroundColor,
   } = options
@@ -59,7 +59,7 @@ const svg2Image: Svg2Image = (svgElement, options = {}) => {
 
         const imgData = canvas.toDataURL(`image/${format}`)
 
-        if (downloadOnClick) {
+        if (download) {
           const downloadBtn = document.createElement('a')
 
           downloadBtn.setAttribute('href', imgData)
